@@ -16,3 +16,4 @@ MonoBehaviour:
     type: 2}
   outputKithenObjectSO: {fileID: 11400000, guid: 11ebad092816fee46924e8e3f1db06a2,
     type: 2}
+  progressCuttingMax: 5
