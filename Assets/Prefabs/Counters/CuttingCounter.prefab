@@ -178,6 +178,8 @@ GameObject:
   - component: {fileID: 3414464576524945191}
   - component: {fileID: 5121026557463551667}
   - component: {fileID: 3586646002202984233}
+  - component: {fileID: 5202404940602256495}
+  - component: {fileID: 7104476784195399833}
   m_Layer: 5
   m_Name: ProgressBarUI
   m_TagString: Untagged
@@ -269,6 +271,32 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5202404940602256495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8528660097401369473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3645f351dfdb79e47bbcd69a2cef4728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cuttingCounter: {fileID: 3871526504979048377}
+  barImage: {fileID: 7349769280564583449}
+--- !u!114 &7104476784195399833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8528660097401369473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a6e68d16f9e4944682f2818a8c0946a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1059184276523934217
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -335,7 +363,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4589716710238282922, guid: d72bee846803d074784ffb8f64e993ca,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5482743598568877052}
   m_SourcePrefab: {fileID: 100100000, guid: d72bee846803d074784ffb8f64e993ca, type: 3}
 --- !u!4 &3531676956884862626 stripped
 Transform:
@@ -343,6 +375,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1059184276523934217}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3531676956884862627 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4589716710238282922, guid: d72bee846803d074784ffb8f64e993ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 1059184276523934217}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5482743598568877052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3531676956884862627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f9fa3148ab3d84eae0a348dd074bfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cuttingCounter: {fileID: 3871526504979048377}
 --- !u!1001 &6999520634039254194
 PrefabInstance:
   m_ObjectHideFlags: 0
