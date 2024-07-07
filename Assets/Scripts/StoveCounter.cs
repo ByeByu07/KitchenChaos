@@ -98,9 +98,9 @@ public class StoveCounter : BaseCounter, IHasProgress
             }
             else
             {
-                GetKitchenObject().SetKitchenObjectParent(player);
                 state = State.Idle;
                 OnStateChanged?.Invoke(this, new OnStateChangedEventArgs { state = state });
+                GetKitchenObject().SetKitchenObjectParent(player);
             }
         }
 
