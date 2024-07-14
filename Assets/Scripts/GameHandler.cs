@@ -6,6 +6,8 @@ using UnityEngine;
 public class GameHandler : MonoBehaviour
 {
     public event EventHandler OnStateChanged;
+    public event EventHandler OnGamePaused;
+    public event EventHandler OnGameUnPaused;
     public static GameHandler Instance { get; private set; }
     public enum State
     {
@@ -19,14 +21,23 @@ public class GameHandler : MonoBehaviour
     [SerializeField] private float onWaitingCountDownTimerMax = 1f;
     [SerializeField] private float onStartingCountDownTimerMax = 3f;
     [SerializeField] private float onPlayTimerMax = 10f;
+    [SerializeField] private float onPlayTimer;
+
+    private bool isPauseGame = false;
 
     private void Awake()
     {
         Instance = this;
+        state = State.OnWaitingCountDown;
     }
     private void Start()
     {
-        state = State.OnWaitingCountDown;
+        GameInput.Instance.OnPauseAction += GameInput_OnPauseAction;
+    }
+
+    private void GameInput_OnPauseAction(object sender, EventArgs e)
+    {
+        TogglePauseGame();
     }
 
     private void Update()
@@ -45,13 +56,14 @@ public class GameHandler : MonoBehaviour
                 onStartingCountDownTimerMax -= Time.deltaTime;  
                 if(onStartingCountDownTimerMax < 0f)
                 {
+                    onPlayTimer = onPlayTimerMax;
                     state = State.OnPlay;
                     OnStateChanged?.Invoke(this, EventArgs.Empty);
                 }
                 break;
             case State.OnPlay:
-                onPlayTimerMax -= Time.deltaTime;
-                if(onPlayTimerMax < 0f)
+                onPlayTimer -= Time.deltaTime;
+                if(onPlayTimer < 0f)
                 {
                     state = State.OnGameOver;
                     OnStateChanged?.Invoke(this, EventArgs.Empty);
@@ -73,8 +85,33 @@ public class GameHandler : MonoBehaviour
         return state == State.OnStartingCountDown;
     }
 
+    public bool IsOnGameOver()
+    {
+        return state == State.OnGameOver;
+    }
+
     public float GetCountDownTimer()
     {
         return onStartingCountDownTimerMax;
+    }
+
+    public float GetPlayingTimerNormalized()
+    {
+        return 1 - (onPlayTimer / onPlayTimerMax);
+    }
+
+    public void TogglePauseGame()
+    {
+        isPauseGame = !isPauseGame;
+
+        if (isPauseGame)
+        {
+            Time.timeScale = 0f;
+            OnGamePaused?.Invoke(this, EventArgs.Empty);
+        } else
+        {
+            Time.timeScale = 1f;
+            OnGameUnPaused?.Invoke(this, EventArgs.Empty);
+        }
     }
 }
