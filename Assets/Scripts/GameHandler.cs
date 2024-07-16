@@ -72,7 +72,6 @@ public class GameHandler : MonoBehaviour
             case State.OnGameOver:
                 break;
         }
-        Debug.Log(state);
     }
 
     public bool IsOnPlay()

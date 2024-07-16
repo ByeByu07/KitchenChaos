@@ -5,8 +5,14 @@ using UnityEngine;
 
 public class TrashCounter : BaseCounter
 {
-   public static event EventHandler OnDrop;
-   public override void Interact(Player player)
+    public static event EventHandler OnDrop;
+
+    new public static void ResetStaticListenerData()
+    {
+        OnDrop = null;
+    }
+
+    public override void Interact(Player player)
     {
         if (player.HasKitchenObject())
         {
