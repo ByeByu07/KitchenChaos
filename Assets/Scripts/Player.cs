@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour, IKitchenObjectParent
 {
     public static Player Instance { get; private set; }
+    public event EventHandler OnPlayerPickObject;
 
     public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
     public class OnSelectedCounterChangedEventArgs : EventArgs
@@ -35,11 +36,24 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     private void Start()
     {
         gameInput.OnInteractAction += GameInput_OnInteractAction;
+        gameInput.OnInteractAlternateAction += GameInput_OnInteractAlternateAction;
     }
 
-    private void GameInput_OnInteractAction(object sender, System.EventArgs e)
+    private void GameInput_OnInteractAlternateAction(object sender, EventArgs e)
     {
-        if(selectedClearCounter != null)
+        if (!GameHandler.Instance.IsOnPlay()) return;
+
+        if (selectedClearCounter != null)
+        {
+            selectedClearCounter.InteractAlternate(this);
+        }
+    }
+
+    private void GameInput_OnInteractAction(object sender, EventArgs e)
+    {
+        if (!GameHandler.Instance.IsOnPlay()) return;
+
+        if (selectedClearCounter != null)
         {
             selectedClearCounter.Interact(this);
         }
@@ -124,6 +138,11 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     public void SetKitchenObject(KitchenObject kitchenObject)
     {
         this.kitchenObject = kitchenObject;
+
+        if(this.kitchenObject != null)
+        {
+            OnPlayerPickObject?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public KitchenObject GetKitchenObject()
